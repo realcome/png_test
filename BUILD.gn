@@ -1,0 +1,60 @@
+# Copyright 2014 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+import("//build/buildflag_header.gni")
+import("//build/config/compiler/compiler.gni")
+import("//build/config/features.gni")
+import("//build/config/locales.gni")
+
+declare_args() {
+  enable_png_logging = false
+}
+
+config("nocmt") {
+    ldflags = [
+      "/NODEFAULTLIB:uafxcw",
+      "/NODEFAULTLIB:uafxcwd",
+      "/DELAYLOAD:dbghelp.dll",
+      "/DELAYLOAD:dwmapi.dll",
+      "/DELAYLOAD:uxtheme.dll",
+      "/DELAYLOAD:ole32.dll",
+      "/DELAYLOAD:oleaut32.dll",
+      "/DELAYLOAD:shell32.dll",
+    ]
+    libs = [ "uafxcw.lib" ]
+}
+
+executable("test_png") {
+  sources = [
+  "hello.cpp",
+  "mytest.cpp",
+  "mytest.h",
+  "mytest.rc",
+  "png_decoder.cpp",
+  "png_decoder.h",
+  "mytestDlg.cpp",
+  "mytestDlg.h",
+  "resource.h",
+  "stdafx.cpp",
+  "stdafx.h",
+  "targetver.h",
+  "logging.h",
+  "logging.c",
+
+  ]
+
+  defines = []
+  if (enable_png_logging) {
+    defines += ["ENABLE_PNGLOG"]
+  }
+  
+  deps = [
+    "//third_party/libpng",
+  ]
+  
+  #public_configs = [ ":nocmt" ]
+  
+  configs -= [ "//build/config/win:console" ]
+  configs += [ "//build/config/win:windowed" ]
+  
+}

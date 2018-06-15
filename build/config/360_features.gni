@@ -1,0 +1,35 @@
+# Copyright 2014 The Chromium Authors. All rights reserved.
+
+# Defines top level 360 features args here.
+# TODO: We should confine this to content/chrome prj only.
+# TODO: Add comments for each feature args.
+declare_args() {
+  use_360hack = true
+  for_360se = true
+  for_360chrome = false
+  use_xp_api_360 = true
+  use_log_360 = true
+  # Not both enabled.
+  # assert(!for_360se || !for_360chrome)
+
+  enable_google_sync = false
+  enable_component_updater = false
+  enable_dom_distiller = true
+  enable_kantu = true
+  enable_adfilter = true
+  use_360_vkb = true
+  enable_guess_ulike = true
+  enable_super_cookie = true
+  enable_send_mobile = true
+  enable_readmode = true
+  enable_mini_news = true
+  # enable_autofill_dialog = (use_360hack && for_360chrome)
+  enable_autofill_dialog = true
+  enable_use_dpi100_as_dpi125 = true
+  enable_popup_wnd = true
+
+  link_webkit_lib = false
+
+  # qihoo cloud message
+  enable_qcm = true 
+} # end
